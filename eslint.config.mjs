@@ -3,11 +3,17 @@ import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import stylistic from '@stylistic/eslint-plugin';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import jestEslint from 'eslint-plugin-jest';
 
 const eslintRules = {
   'no-console': 'warn',
 };
+
 const stylisticRules = {
+  '@stylistic/semi': ['error', 'always'],
+};
+
+const jestRules = {
   '@stylistic/semi': ['error', 'always'],
 };
 
@@ -18,6 +24,7 @@ export default [
   { files: ['**/*.{js,mjs,cjs,ts}'] },
   { languageOptions: { globals: { ...globals.node, ...globals.jest } } },
   pluginJs.configs.recommended,
+  jestEslint.configs['flat/recommended'],
   stylistic.configs['recommended-flat'],
   eslintPluginUnicorn.configs['flat/recommended'],
   ...tseslint.configs.recommended,
@@ -29,6 +36,7 @@ export default [
       ...stylisticRules,
       ...unicornRules,
       ...eslintRules,
+      ...jestRules,
     },
   },
 ];
